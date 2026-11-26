@@ -34,6 +34,44 @@ function AssessmentValue({ equipment, instanceId, conditionId, conditionName, on
   </>
 }
 
+function FixedLoadoutComparison({ current, saved }: {
+  readonly current: Extract<ConditionAssessment, { status: 'complete' }>
+  readonly saved: readonly ConditionAssessment[]
+}) {
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const options = current.referenceOptions ?? [current.best]
+  const selected = options[selectedIndex]
+  return <section className="assessment-reference" aria-label="同じ装備構成を別条件で比較">
+    <h3>同じ装備構成を別条件で比較</h3>
+    <p>現在の条件の候補から固定する装備個体とエンチャントを選び、各条件の最良構成と比較します。遠距離の時間と発射モードは各条件で評価できる候補から選びます。</p>
+    {options.length > 1 && <label>比較する現在条件の構成
+      <select value={selectedIndex} onChange={(event) => setSelectedIndex(Number(event.target.value))}>
+        {options.map((option, index) => <option key={index} value={index}>
+          {index === 0 ? '現在の1位' : `比較用の次点 ${index}`} · {format.format(option.objectiveScore)}pt
+        </option>)}
+      </select>
+    </label>}
+    {selectedIndex > 0 && selected && <details className="assessment-reference-condition">
+      <summary>選んだ構成を現在の条件で見る</summary>
+      <BuildAlternative title="現在の条件での構成" evaluation={selected} best={current.best} weights={current.condition.scenario.weights} />
+    </details>}
+    {saved.map((assessment) => {
+      if (assessment.status === 'error') return <details className="assessment-reference-condition" key={assessment.condition.id}>
+        <summary>{assessment.condition.name} · 条件を評価できませんでした</summary>
+        <p role="alert">{assessment.error}</p>
+      </details>
+      const comparison = assessment.referenceComparisons?.[selectedIndex] ?? (selectedIndex === 0 ? assessment.referenceBuild : undefined)
+      return <details className="assessment-reference-condition" key={assessment.condition.id}>
+        <summary>{assessment.condition.name} · {comparison?.status !== 'evaluated' ? '同じ構成は未評価'
+          : comparison.scoreGap === 0 ? '最良と同点' : `最良との差 ${formatGap(comparison.scoreGap)}pt`}</summary>
+        {comparison?.status === 'evaluated'
+          ? <BuildAlternative title="固定した構成" evaluation={comparison.evaluation} best={assessment.best} weights={assessment.condition.scenario.weights} />
+          : <p>この条件で使える候補の中に、同じ装備個体とエンチャントの構成がありません。</p>}
+      </details>
+    })}
+  </section>
+}
+
 export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
   readonly inventory: Inventory
   readonly scenario: Scenario
@@ -144,18 +182,8 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
           </details>
         </>}
       </details>)}
-      {search.assessments.length > 1 && search.assessments[0]?.status === 'complete' && <section className="assessment-reference" aria-label="同じ装備構成を別条件で比較">
-        <h3>同じ装備構成を別条件で比較</h3>
-        <p>現在の推奨構成の装備個体とエンチャントを固定し、各条件の最良構成と比較します。遠距離の時間と発射モードは各条件で評価できる候補から選びます。</p>
-        {search.assessments.slice(1).map((assessment) => <details className="assessment-reference-condition" key={assessment.condition.id}>
-          <summary>{assessment.condition.name} · {assessment.status === 'error' ? '条件を評価できませんでした'
-            : assessment.referenceBuild?.status !== 'evaluated' ? '同じ構成は未評価'
-              : assessment.referenceBuild.scoreGap === 0 ? '最良と同点' : `最良との差 ${formatGap(assessment.referenceBuild.scoreGap)}pt`}</summary>
-          {assessment.status === 'error' ? <p role="alert">{assessment.error}</p>
-            : assessment.referenceBuild?.status === 'evaluated' ? <BuildAlternative title="固定した構成" evaluation={assessment.referenceBuild.evaluation} best={assessment.best} weights={assessment.condition.scenario.weights} />
-              : <p>この条件で使える候補の中に、同じ装備個体とエンチャントの構成がありません。</p>}
-        </details>)}
-      </section>}
+      {search.assessments.length > 1 && search.assessments[0]?.status === 'complete'
+        && <FixedLoadoutComparison current={search.assessments[0]} saved={search.assessments.slice(1)} />}
       {multiConditionBestScores && multiConditionBestScores.distinctCompletedConditionCount > 1 && <section className="assessment-cross-condition" aria-label="複数条件で最良スコアに届く装備">
         <h3>複数条件で最良スコアの構成に使える装備</h3>
         <p>装備個体を1つずつ必須にした最良構成を各条件で調べ、条件ごとの最良スコアと同点になった装備を表示します。表示名が異なっても評価入力が同じ条件は1件として数えます。複数の表示装備を同じ構成で同時に使えるとは限らず、条件間のスコアも比べたり合算したりしません。未評価の装備は含まず、ここにない装備が不要という意味ではありません。</p>
