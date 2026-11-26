@@ -40,7 +40,9 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
   const [error, setError] = useState('')
   const audited = RANGED_WEAPON_AUDIT.entries.find((item) => item.id === weapon.weaponId)!
   const catalog = getEquipmentCatalogEntry('ranged', weapon.weaponId)!
+  const storedAlternate = weapon.modeComparison?.observation
   const showConsumedArrows = requiresExplicitRangedAmmoCost(weapon.weaponId) || observed?.arrowsConsumedPerShot !== undefined
+    || (storedAlternate?.mode === draft.mode && storedAlternate.arrowsConsumedPerShot !== undefined)
   const canSaveOtherMode = observed !== undefined && supportsRangedModeComparison(weapon.weaponId)
     && observed.mode !== draft.mode && observed.mode !== 'single' && draft.mode !== 'single'
     && pairedAtCurrentPower && rangedObservationMatchesPower(weapon) && !rangedAmmoObservationIssue(weapon)

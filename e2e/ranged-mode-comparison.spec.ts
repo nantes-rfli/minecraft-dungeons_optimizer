@@ -29,13 +29,17 @@ test('keeps independent modes for one bow and compares them at the same arrow st
   const damage = editor.getByRole('spinbutton', { name: 'modes-bow damage' })
   const cycle = editor.getByRole('spinbutton', { name: 'modes-bow cycle' })
   const ammo = editor.getByRole('spinbutton', { name: 'modes-bow ammo' })
+  const addOtherMode = editor.getByRole('button', { name: 'もう一方の発射モードとして保存' })
+  const fillChargedObservation = async () => {
+    await damage.fill('2200')
+    await cycle.fill('4')
+    await editor.getByRole('textbox', { name: 'modes-bow 観測メモ' }).fill('Synthetic charged browser record')
+  }
   await expect(damage).toHaveValue('')
   await expect(cycle).toHaveValue('')
   await expect(ammo).toHaveValue('1')
-  await damage.fill('2200')
-  await cycle.fill('4')
-  await editor.getByRole('textbox', { name: 'modes-bow 観測メモ' }).fill('Synthetic charged browser record')
-  await editor.getByRole('button', { name: 'もう一方の発射モードとして保存' }).click()
+  await fillChargedObservation()
+  await addOtherMode.click()
   await expect(editor.getByText(/記録した発射モードは 弓・未チャージ と 弓・フルチャージ/)).toBeVisible()
   const persisted = () => page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory.rangedWeapons, inventoryKey)
   await expect.poll(persisted).toEqual([{
@@ -43,6 +47,26 @@ test('keeps independent modes for one bow and compares them at the same arrow st
     modeComparison: { powerLevel: 251, observation: { gameVersion: '1.17.0.0', mode: 'charged', projectileDamage: 2_200, shotCycleSeconds: 4, sourceNote: 'Synthetic charged browser record' } },
   }])
   const savedAtPreviousPower = await persisted()
+
+  await page.evaluate((key) => {
+    const stored = JSON.parse(localStorage.getItem(key)!)
+    stored.inventory.rangedWeapons[0].modeComparison.observation.arrowsConsumedPerShot = 2
+    localStorage.setItem(key, JSON.stringify(stored))
+  }, inventoryKey)
+  await page.reload()
+  await openEditor()
+  await expect(editor.getByText(/消費数2は未対応/)).toBeVisible()
+  await editor.getByRole('combobox', { name: 'modes-bow 発射モード' }).selectOption('charged')
+  const cost = editor.getByRole('spinbutton', { name: 'modes-bow arrowsConsumedPerShot' })
+  await expect(cost).toHaveValue('')
+  await fillChargedObservation()
+  await addOtherMode.click()
+  await expect(editor.getByRole('alert')).toContainText('消費矢数を再入力')
+  expect((await persisted())[0].modeComparison.observation.arrowsConsumedPerShot).toBe(2)
+  await cost.fill('1')
+  await addOtherMode.click()
+  await expect.poll(async () => (await persisted())[0].modeComparison.observation.arrowsConsumedPerShot).toBe(1)
+  await expect(editor.getByText(/消費数2は未対応/)).toHaveCount(0)
 
   await page.reload()
   await page.evaluate(() => { window.location.hash = '/optimize' })
