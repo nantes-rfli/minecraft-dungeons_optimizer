@@ -1121,6 +1121,19 @@ export interface EffectContribution {
   readonly controlUtilityDelta: number
 }
 
+export interface RecommendationMinimums {
+  readonly singleTargetDps?: number
+  readonly effectiveHealth?: number
+}
+
+export interface RecommendationMinimumsResult {
+  readonly requested: RecommendationMinimums
+  readonly match:
+    | { readonly status: 'none' }
+    | { readonly status: 'overall-best' }
+    | { readonly status: 'alternative'; readonly best: Evaluation }
+}
+
 export interface OptimizationResult {
   /** Unsupported choices are excluded, never evaluated as zero-damage effects. */
   readonly unsupportedChoices: readonly string[]
@@ -1129,6 +1142,7 @@ export interface OptimizationResult {
   readonly paretoFrontier: readonly Evaluation[]
   readonly evaluatedBuildCount: number
   readonly searchMode: 'exhaustive'
+  readonly recommendationMinimums?: RecommendationMinimumsResult
 }
 
 /** @deprecated Use OwnedWeapon. */

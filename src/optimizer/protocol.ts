@@ -1,5 +1,5 @@
 import type { InventoryReadiness } from '../core/readiness'
-import type { Evaluation, Inventory, OptimizationResult, Scenario } from '../core/types'
+import type { Evaluation, Inventory, OptimizationResult, RecommendationMinimums, Scenario } from '../core/types'
 import type { AssessmentCondition, ConditionAssessment } from '../core/equipmentAssessment'
 import type { TrialConditionComparison } from '../core/trialConditionComparison'
 import type { RemovalBaselineCondition, RemovalConditionComparison } from '../core/inventoryRemovalComparison'
@@ -24,6 +24,7 @@ export interface OptimizeRequest {
   readonly assessmentConditions?: readonly AssessmentCondition[]
   readonly trialComparison?: TrialComparisonInput
   readonly removalComparison?: RemovalComparisonInput
+  readonly recommendationMinimums?: RecommendationMinimums
 }
 export type OptimizeResponse =
   | { readonly id: number; readonly type: 'readiness-complete'; readonly readiness: InventoryReadiness; readonly durationMs: number }

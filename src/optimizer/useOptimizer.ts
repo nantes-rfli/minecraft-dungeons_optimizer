@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useSyncExternalStore } from 'react'
-import type { Inventory, Scenario } from '../core/types'
+import type { Inventory, RecommendationMinimums, Scenario } from '../core/types'
 import type { AssessmentCondition } from '../core/equipmentAssessment'
 import type { RemovalComparisonInput, TrialComparisonInput } from './protocol'
 import OptimizerWorker from './worker?worker'
@@ -14,6 +14,9 @@ export function useOptimizer(inventory: Inventory, scenario: Scenario, includeEv
   }, [controller, inventory, scenario, assessmentConditions, trialComparison, removalComparison, equipmentInstanceId, inventoryReadiness])
   // Hide the previous inputs' results immediately, before passive effect cleanup.
   const state = snapshot.request?.inventory === inventory && snapshot.request.scenario === scenario && snapshot.request.assessmentConditions === assessmentConditions && snapshot.request.trialComparison === trialComparison && snapshot.request.removalComparison === removalComparison && snapshot.request.equipmentInstanceId === equipmentInstanceId && snapshot.request.inventoryReadiness === inventoryReadiness ? snapshot : IDLE_SEARCH
-  const start = useCallback(() => controller.start({ inventory, scenario, includeEvaluationMetadata, assessmentConditions, trialComparison, removalComparison, equipmentInstanceId, inventoryReadiness }), [controller, inventory, scenario, includeEvaluationMetadata, assessmentConditions, trialComparison, removalComparison, equipmentInstanceId, inventoryReadiness])
-  return { ...state, start, cancel: controller.cancel }
+  const startWithRecommendationMinimums = useCallback((recommendationMinimums?: RecommendationMinimums) => {
+    controller.start({ inventory, scenario, includeEvaluationMetadata, assessmentConditions, trialComparison, removalComparison, equipmentInstanceId, inventoryReadiness, recommendationMinimums })
+  }, [controller, inventory, scenario, includeEvaluationMetadata, assessmentConditions, trialComparison, removalComparison, equipmentInstanceId, inventoryReadiness])
+  const start = useCallback(() => startWithRecommendationMinimums(), [startWithRecommendationMinimums])
+  return { ...state, start, startWithRecommendationMinimums, cancel: controller.cancel }
 }
